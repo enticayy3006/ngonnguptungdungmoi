@@ -30,46 +30,40 @@ function convertDataToHTML(post) {
 
 //POST: domain:port//posts + body
 async function SaveData(){
-    let id = document.getElementById("id").value;
     let title = document.getElementById("title").value;
-    let view = document.getElementById("view").value;
-    let data = await fetch("http://localhost:3000/posts/"+id);
-    if(data.ok){
-        let dataObj = {
-            title:title,
-            views:view
+    let view = Number(document.getElementById("view").value);
+
+    // Lấy danh sách posts hiện tại để tìm maxId
+    let res = await fetch('http://localhost:3000/posts');
+    let posts = await res.json();
+    let maxId = posts.length > 0 ? Math.max(...posts.map((p) => typeof p.id === "number" ? p.id : 0)) : 0;
+    let newId = maxId + 1;
+
+    let dataObj = { id: newId, title: title, views: view, isDelete: false };
+    await fetch('http://localhost:3000/posts', {
+        method: 'POST',
+        body: JSON.stringify(dataObj),
+        headers: {
+            "Content-Type": "application/json"
         }
-        let res = await fetch('http://localhost:3000/posts/'+id,
-        {
-            method:'PUT',
-            body:JSON.stringify(dataObj),
-            headers:{
-                "Content-Type":"application/json"
-            }
-        });
-        console.log(res);
-    }else{
-        let dataObj = {
-            id:id,
-            title:title,
-            views:view
-        }
-        let res = await fetch('http://localhost:3000/posts',
-        {
-            method:'POST',
-            body:JSON.stringify(dataObj),
-            headers:{
-                "Content-Type":"application/json"
-            }
-        });
-        console.log(res);
-    }
+    });
 }
 
 //DELETE: domain:port//posts/id
 async function Delete(id){
-    await fetch('http://localhost:3000/posts/'+id,{
-        method:'Delete'
+    // Lấy dữ liệu hiện tại của post
+    let res = await fetch('http://localhost:3000/posts/' + id);
+    let post = await res.json();
+
+    // Cập nhật isDelete thành true
+    post.isDelete = true;
+
+    await fetch('http://localhost:3000/posts/' + id, {
+        method: 'PUT',
+        body: JSON.stringify(post),
+        headers: {
+            "Content-Type": "application/json"
+        }
     });
-    console.log("Delete thanh cong");
+    console.log("Xoá mềm thành công");
 }

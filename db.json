@@ -1,34 +1,20 @@
 {
   "posts": [
     {
-      "id": "1",
-      "title": "a title",
-      "views": 100
+      "id": "14ca",
+      "title": "2",
+      "views": 1212
     },
     {
-      "id": "2",
-      "title": "another title",
-      "views": 200
+      "id": "b163",
+      "title": "hahah",
+      "views": 23
     },
     {
-      "title": "heheeh",
-      "views": "20000",
-      "id": "3"
+      "id": 1,
+      "title": "qq",
+      "views": 1000,
+      "isDelete": false
     }
-  ],
-  "comments": [
-    {
-      "id": "1",
-      "text": "a comment about post 1",
-      "postId": "1"
-    },
-    {
-      "id": "2",
-      "text": "another comment about post 1",
-      "postId": "1"
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
