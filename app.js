@@ -24,8 +24,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/comments',require('./routes/comments'))
 app.use('/products',require('./routes/products'))
+app.use('/categories',require('./routes/categories'))
 
-mongoose.connect('mongodb://localhost:27017/NNPTUD-S5').catch(
+// MongoDB Atlas connection string (thay YOUR_CONNECTION_STRING bằng connection string thật)
+mongoose.connect('mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/NNPTUD-S5?retryWrites=true&w=majority').catch(
   function(err){
     console.log(err);
   }
